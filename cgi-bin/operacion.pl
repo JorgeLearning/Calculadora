@@ -5,6 +5,8 @@ use CGI;
 
 my $q = CGI->new;
 my $operation = $q->param("expression");
+$operation =~ s/%2B/+/g;  # Sustituir %2B por +
+$operation =~ s/%2F/\//g;  # Sustituir %2F por /
 
 sub operate {
   # Eliminamos los espacios en blanco
@@ -32,7 +34,7 @@ sub validateOverall {
 sub validateOperators {
   my $expression = $_[0];
   print "$expression\n\n";
-  my @segments = $expression =~ /\d+[+\-\*\/]{1,2}\d+/g; 
+  my @segments = $expression =~ /(\d+|[+\-*\/]+)/g; 
   foreach my $segment (@segments) {
     print "$segment\n";
   }
