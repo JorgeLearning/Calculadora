@@ -11,7 +11,6 @@ $operation =~ s/%2F/\//g;  # Sustituir %2F por /
 sub operate {
   # Eliminamos los espacios en blanco
   my $expression = $_[0];
-  print "$expression\n";
   $expression =~ s/\s//g;
 
   # Validamos la expresión
@@ -23,7 +22,25 @@ sub operate {
     return "Expresion no valida\n";
   }
 
-  return "Expresion valida\n";
+  # Resolvemos primero divisiones
+  while ($expression =~ /(-?\d+)([\/])(-?\d+)/) {
+    my ($left, $operator, $right) = ($1, $2, $3);
+    print "$left\n$operator\n$right\n";
+    my $result = $left / $right;
+    $expression =~ s/\Q$left$operator$right/$result/;
+    print "$expression\n";
+  }
+
+  # Resolver multiplicaciones
+  while ($expression =~ /(-?\d+)([*])(-?\d+)/) {
+    my ($left, $operator, $right) = ($1, $2, $3);
+    my $result = $left * $right;
+    $expression =~ s/\Q$left$operator$right/$result/;
+  }
+
+  # Resolver sumas y restas
+  my $finalResult = eval $expression;
+  return $finalResult;
 }
 
 sub validateOverall {
@@ -40,13 +57,10 @@ sub validateOperators {
   foreach my $segment (@segments) {
     if($segment =~ /\D/) {
       if(length($segment) <= 2) {
-        print "$segment\n";
         if($segment =~ /^[+\-]/ && length($segment) != 1) { 
-          print "Empieza con + o -\n";
           return 0;
         } 
         if(length($segment) == 2 && substr($segment, 1, 1) ne "-") {
-          print "Empieza con * o /\n";
           return 0; 
         }
       } else {
