@@ -11,30 +11,27 @@ $operation =~ s/%2F/\//g;  # Sustituir %2F por /
 # Eliminamos los espacios en blanco
 $operation =~ s/\s//g;
 
-# Validamos la expresión
-if(!validateOverall($operation) && !validateOperators($operation)) {
-  return "Expresion no valida\n";
-}
-
 sub operate {
   my $expression = $_[0];
+
+  # Validamos la expresión
+  if(!validateOverall($expression) && !validateOperators($expression)) {
+    return "Expresion invalida";
+  }
 
   # Aplicamos recurrencia para los parentesis
   while ($expression =~ /\(([^()]+)\)/) {
     my $subexpression = $1;
     my $resultSubexpression = operate($subexpression);
     $expression =~ s/\Q($subexpression)/$resultSubexpression/;
-    print "$expression\n";
   }
 
   # Resolvemos primero divisiones
   while ($expression =~ /(-?\d+(\.\d+)?)([\/])(-?\d+(\.\d+)?)/) {
     my ($left, $operator, $right) = ($1, $3, $4);
-    print "$left\n$operator\n$right\n";
     my $result = $left / $right;
     my $subtitution = sprintf("%s%s%s", $left, $operator, $right);
     $expression =~ s/\Q$subtitution/$result/;
-    print "$expression\n";
   }
 
   # Resolver multiplicaciones
@@ -47,6 +44,7 @@ sub operate {
 
   # Resolver sumas y restas
   my $finalResult = eval $expression;
+
   return $finalResult;
 }
 
@@ -78,5 +76,32 @@ sub validateOperators {
   return 1;
 }
 
+my $result = operate($operation);
+
 print $q->header("text/html; charset=UTF-8");
-print "\n".operate($operation)."\n";
+print<<HTML;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div>
+    <form action="operacion.pl" method="GET">
+      <div>
+        <input type="text" name="expression" placeholder="Ingrese la expresion">
+      </div>
+      <div>
+        <p>$result</p>
+      </div>
+      <div class="button-wrapper">
+        <input type="submit" value="Calcular">
+      </div>
+    </form>
+  </div>
+</body>
+</html>
+HTML
