@@ -8,34 +8,41 @@ my $operation = $q->param("expression");
 $operation =~ s/%2B/+/g;  # Sustituir %2B por +
 $operation =~ s/%2F/\//g;  # Sustituir %2F por /
 
+# Eliminamos los espacios en blanco
+$operation =~ s/\s//g;
+
+# Validamos la expresión
+if(!validateOverall($operation) && !validateOperators($operation)) {
+  return "Expresion no valida\n";
+}
+
 sub operate {
-  # Eliminamos los espacios en blanco
   my $expression = $_[0];
-  $expression =~ s/\s//g;
 
-  # Validamos la expresión
-  if(!validateOverall($expression)) {
-    return "Expresion no valida\n";
-  }
-
-  if(!validateOperators($expression)) {
-    return "Expresion no valida\n";
+  # Aplicamos recurrencia para los parentesis
+  while ($expression =~ /\(([^()]+)\)/) {
+    my $subexpression = $1;
+    my $resultSubexpression = operate($subexpression);
+    $expression =~ s/\Q($subexpression)/$resultSubexpression/;
+    print "$expression\n";
   }
 
   # Resolvemos primero divisiones
-  while ($expression =~ /(-?\d+)([\/])(-?\d+)/) {
-    my ($left, $operator, $right) = ($1, $2, $3);
+  while ($expression =~ /(-?\d+(\.\d+)?)([\/])(-?\d+(\.\d+)?)/) {
+    my ($left, $operator, $right) = ($1, $3, $4);
     print "$left\n$operator\n$right\n";
     my $result = $left / $right;
-    $expression =~ s/\Q$left$operator$right/$result/;
+    my $subtitution = sprintf("%s%s%s", $left, $operator, $right);
+    $expression =~ s/\Q$subtitution/$result/;
     print "$expression\n";
   }
 
   # Resolver multiplicaciones
-  while ($expression =~ /(-?\d+)([*])(-?\d+)/) {
-    my ($left, $operator, $right) = ($1, $2, $3);
+  while ($expression =~ /(-?\d+(\.\d+)?)([*])(-?\d+(\.\d+)?)/) {
+    my ($left, $operator, $right) = ($1, $3, $4);
     my $result = $left * $right;
-    $expression =~ s/\Q$left$operator$right/$result/;
+    my $subtitution = sprintf("%s%s%s", $left, $operator, $right);
+    $expression =~ s/\Q$subtitution/$result/;
   }
 
   # Resolver sumas y restas
@@ -45,7 +52,7 @@ sub operate {
 
 sub validateOverall {
   my $expression = $_[0];
-  if(($expression =~ /^[0-9+\-\*\/\(\)]+$/) && ($expression =~ /^[0-9-\(]/) && ($expression =~ /[0-9\)]$/)) {
+  if(($expression =~ /^[0-9+\-\*\/\(\.)]+$/) && ($expression =~ /^[0-9-\(]/) && ($expression =~ /[0-9\)]$/)) {
     return 1;  
   }
   return 0;
