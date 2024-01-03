@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda Simple</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="google-links">
+            <a href="index.html">Simple</a>
+            <a href="images_search.html">Images</a>
+            <a href="advanced_search.html">Advanced</a>
+        </div>
+    </div>
+
+    <div class="google-container">
+        <div class="google-header">
+            <div class="google-logo">
+              <img src="img/google_simple.png" alt="Logo de Google">
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <form action="cgi-bin/simple_search.pl" method="GET">
+                <div class="input-wrapper">
+                    <input type="text" name="search" placeholder="Buscar en Google" autofocus>
+                </div>
+                <div class="button-wrapper">
+                    <input type="submit" value="Buscar">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
