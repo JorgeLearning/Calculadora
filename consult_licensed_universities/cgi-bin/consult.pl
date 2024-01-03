@@ -14,7 +14,27 @@ my $kind = $q->param("kind");
 my $keyword = $q->param("keyword");
 
 print $q->header("text/html", "charset=UTF-8");
-print "$kind\n$keyword\n";
+print<<HTML;
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Resultado Universidades</title>
+</head>
+<body>
+  <h2>Tabla de Ejemplo</h2>
+  <table border="1">
+    <tr>
+      <th>Codigo de entidad</th>
+      <th>Nombre</th>
+      <th>Tipo de Gestion</th>
+      <th>Periodo de licenzamiento</th>
+      <th>Departamento local</th>
+    </tr>
+
+HTML
+
 search($kind, $keyword, \@arr);
 
 # Esta es la subrutina general que hace la busqueda, recibe los campos y el
@@ -26,8 +46,6 @@ sub search {
   my @array = @$arrayRef;
   my $size = readHeader(@array);
   my $pattern = generateRegExp($size);
-  print "$size\n$pattern\n";
-  print "Antes del 1er foreach\n";
 
   my %results = ();
   foreach my $line (@array) {
@@ -36,6 +54,12 @@ sub search {
       my $item = kindSearch($kind, \@items);
 
       if($item eq $keyword) {
+        print
+        "<tr><td>$1</td>
+        <td>$2</td>
+        <td>$3</td>
+        <td>$5</td>
+        <td>$11</td></tr>";
         my $cont = $results{$items[0]};
         if(!defined($cont)) {
           $results{$items[0]} = 1;
@@ -46,7 +70,9 @@ sub search {
       }
     }
   }
-  print "Despues del 2do foreach\n";
+  print "</table>
+        </body>
+        </html>";
 
   foreach my $result (keys %results) {
     print "$result : $results{$result}\n";
