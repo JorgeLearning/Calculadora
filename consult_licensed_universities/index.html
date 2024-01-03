@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"> 
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Consultas Universidades</title>
+</head>
+<body>
+  <form action="cgi-bin/consult.pl">
+    <label for="kind">Búsqueda por:</label>
+    <select name="kind">
+      <option value="name"> Nombre de Universidad </option>
+      <option value="license"> Periodo de Lincenciamiento </option>
+      <option value="department"> Departamento Local </option>
+      <option value="denomination"> Denominacion Local </option>
+    </select>
+    <input type="text" name="keyword"><br>
+    <input type="submit" value="buscar">
+  </form>
+</body>
+</html>
