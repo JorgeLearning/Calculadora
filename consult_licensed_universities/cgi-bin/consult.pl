@@ -10,15 +10,18 @@ close(IN);
 sub readHeader {
   my $line = $arr[0];
   # La expresion regular captura un flujo de caracteres hasta encontrar el "|". 
+  my $count = 1;
   while($line =~ /^([^\|]+)\|(.+)/) {
     # Una vez que se encuentra "|" la cadena se separa en dos partes
     print "$1\n"; 
+    $count++;
     # Actualizamos $line para que la subcadena se vuelva a analizar
     $line = $2;
   }
   # Como para la ultima $line no se encontrara "|", el while para y no se 
   # imprime el ultimo item
   print "$line\n";
+  return $count;
 }
 
 sub generateRegExp {
@@ -32,7 +35,8 @@ sub generateRegExp {
   return $exp;
 }
 
+my $size = readHeader();
 # En este caso probamos con 4 divisiones, de hecho deberiamos saber el numero de columnas
 # de cada linea
-print generateRegExp(4)."\n";
+print generateRegExp($size)."\n";
 
