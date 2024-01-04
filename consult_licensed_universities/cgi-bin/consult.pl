@@ -12,6 +12,7 @@ close(IN);
 my $q = CGI->new;
 my $kind = $q->param("kind");
 my $keyword = $q->param("keyword");
+utf8::decode($keyword);
 
 print $q->header("text/html", "charset=UTF-8");
 print<<HTML;
@@ -19,20 +20,20 @@ print<<HTML;
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
   <title>Resultado Universidades</title>
 </head>
 <body>
-  <h2>Tabla de Ejemplo</h2>
-  <table border="1">
+  <h2 class="result-heading">Resultados de Universidades</h2>
+  <table class="result-table", border="1">
     <tr>
       <th>Codigo de entidad</th>
       <th>Nombre</th>
       <th>Tipo de Gestion</th>
       <th>Periodo de licenzamiento</th>
       <th>Departamento local</th>
+      <th>Denominacion programa</th>
     </tr>
-
 HTML
 
 search($kind, $keyword, \@arr);
@@ -54,29 +55,16 @@ sub search {
       my $item = kindSearch($kind, \@items);
 
       if($item eq $keyword) {
-        print
-        "<tr><td>$1</td>
-        <td>$2</td>
-        <td>$3</td>
-        <td>$5</td>
-        <td>$11</td></tr>";
-        my $cont = $results{$items[0]};
-        if(!defined($cont)) {
-          $results{$items[0]} = 1;
-        } else {
-          $cont++;
-          $results{$items[0]} = $cont;
-        }
+        print "<tr><td>$1</td>\n";
+        print "<td>$2</td>\n";
+        print "<td>$3</td>\n";
+        print "<td>$5</td>\n";
+        print "<td>$11</td>\n";
+        print "<td>$17</td></tr>\n";
       }
     }
   }
-  print "</table>
-        </body>
-        </html>";
-
-  foreach my $result (keys %results) {
-    print "$result : $results{$result}\n";
-  }
+  print "</table></body></html>";
 }
 
 sub kindSearch {
