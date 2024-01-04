@@ -2,20 +2,23 @@
 <html>
 <head>
   <meta charset="utf-8"> 
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <title>Consultas Universidades</title>
 </head>
 <body>
-  <form action="cgi-bin/consult.pl">
+  <div class="image-container">
+    <img src="img/logo.png" alt="Sunedu">
+  </div>
+  <form action="cgi-bin/consult.pl", accept-charset="UTF-8">
     <label for="kind">Búsqueda por:</label>
     <select name="kind">
       <option value="name"> Nombre de Universidad </option>
       <option value="license"> Periodo de Lincenciamiento </option>
       <option value="department"> Departamento Local </option>
-      <option value="denomination"> Denominacion Local </option>
+      <option value="denomination"> Denominacion Programa </option>
     </select>
     <input type="text" name="keyword"><br>
-    <input type="submit" value="buscar">
+    <input type="submit" value="Buscar">
   </form>
 </body>
 </html>
