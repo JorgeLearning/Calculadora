@@ -30,7 +30,7 @@ print<<HTML;
       <th>Codigo de entidad</th>
       <th>Nombre</th>
       <th>Tipo de Gestion</th>
-      <th>Periodo de licenzamiento</th>
+      <th>Periodo de licenciamiento</th>
       <th>Departamento local</th>
       <th>Denominacion programa</th>
     </tr>
@@ -48,7 +48,6 @@ sub search {
   my $size = readHeader(@array);
   my $pattern = generateRegExp($size);
 
-  my %results = ();
   foreach my $line (@array) {
     if($line =~ /$pattern/) {
       my @items = ($2, $5, $11, $17);
