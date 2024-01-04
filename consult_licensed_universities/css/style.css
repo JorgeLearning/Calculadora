@@ -1,0 +1,81 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+/* Estilo de la imagen */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30vw; 
+  height: 30vh; 
+  margin: auto; 
+}
+
+.image-container img {
+  max-width: 80%; 
+  max-height: 80%; 
+  width: auto;
+  height: auto;
+}
+
+/* Estilo del formulario */
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 100px;
+  background-color: #fff;
+  /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+select, input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: #8FBC8F;
+  color: #333333;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #808080;
+}
+
+/* Estilo de la tabla de resultados */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #8FBC8F;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #8FBC8F;
+  color: #000000;
+}
+
+/* Estilo del encabezado h2 */
+h2 {
+  color: #333333;
+  text-align: center;
+}
+
