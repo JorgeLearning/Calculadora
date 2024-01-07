@@ -12,7 +12,7 @@ print<<HTML;
 <head>
   <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <title>Resultado Universidades</title>
+    <title>Resultado pelicula</title>
 </head>
 <body>
   <h2>Actriz</h2>
