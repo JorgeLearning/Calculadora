@@ -11,11 +11,11 @@ print<<HTML;
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/table.css">
   <title>Resultado actor</title>
 </head>
 <body>
-  <h2>Actriz</h2>
+  <h2>Actor</h2>
   <table border="1">
     <tr>
       <th>Id</th>
@@ -34,7 +34,7 @@ my $password = 'pweb1';
 my $dsn = "DBI:MariaDB:database=pweb1;host=$ip_address";
 my $dbh = DBI->connect($dsn, $user, $password) or die("No se pudo conectar!");;
 
-# Realizamos una insercion
+# Realizamos la solicitud
 my $id = 5;
 my $sth = $dbh->prepare("SELECT * FROM Actor WHERE ActorID=?");
 $sth->execute($id);

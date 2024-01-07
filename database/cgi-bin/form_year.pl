@@ -5,6 +5,7 @@ use DBI;
 use CGI; 
 
 my $q = CGI->new;
+
 my $year = $q->param("year");
 
 print $q->header("text/html", "charset=UTF-8");
@@ -13,11 +14,11 @@ print<<HTML;
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/table.css">
   <title>Resultados peliculas</title>
 </head>
 <body>
-  <h2>Actriz</h2>
+  <h2>Peliculas</h2>
   <table border="1">
     <tr>
       <th>Title</th>
