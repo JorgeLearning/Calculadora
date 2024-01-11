@@ -5,6 +5,9 @@ const loadMovies = () => {
   promise.then(response => {
     console.log(response);   
     return response.json();
+    console.log(response);   
+  }).then(data => {
+    console.log(data);
   }).catch(error => {
     console.log('Error:', error);
   });
