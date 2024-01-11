@@ -10,9 +10,9 @@ const loadMovies = () => {
     let movies = '';
     data.results.forEach(movie => {
       movies += `
-          <div>
-						<img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}">
-						<h3>${movie.title}</h3>
+          <div class="movies">
+						<img class="post" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}">
+						<h3 class="title">${movie.title}</h3>
 					</div>
         `; 
     });
