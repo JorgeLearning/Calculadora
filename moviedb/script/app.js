@@ -7,7 +7,11 @@ const loadMovies = () => {
     return response.json();
     console.log(response);   
   }).then(data => {
-    console.log(data.results);
+    let movies = '';
+    data.results.forEach(movie => {
+      movies += `<h1>${movie.title}</h1>`; 
+    });
+    document.getElementById('container').innerHTML = movies;
   }).catch(error => {
     console.log('Error:', error);
   });
