@@ -1,5 +1,5 @@
 const loadMovies = () => {
-  let url = 'https://api.themoviedb.org/3/movie/550?api_key=91fc2d35b32e6f40891f2816dd6040bc';
+  let url = 'https://api.themoviedb.org/3/movie/popular?api_key=91fc2d35b32e6f40891f2816dd6040bc';
   const promise = fetch(url);
   
   promise.then(response => {
@@ -7,7 +7,7 @@ const loadMovies = () => {
     return response.json();
     console.log(response);   
   }).then(data => {
-    console.log(data);
+    console.log(data.results);
   }).catch(error => {
     console.log('Error:', error);
   });
