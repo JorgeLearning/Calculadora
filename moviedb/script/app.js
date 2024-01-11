@@ -9,7 +9,12 @@ const loadMovies = () => {
   }).then(data => {
     let movies = '';
     data.results.forEach(movie => {
-      movies += `<h1>${movie.title}</h1>`; 
+      movies += `
+          <div>
+						<img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}">
+						<h3>${movie.title}</h3>
+					</div>
+        `; 
     });
     document.getElementById('container').innerHTML = movies;
   }).catch(error => {
